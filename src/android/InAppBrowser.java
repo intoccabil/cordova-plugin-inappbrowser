@@ -240,6 +240,12 @@ public class InAppBrowser extends CordovaPlugin {
             pluginResult.setKeepCallback(true);
             this.callbackContext.sendPluginResult(pluginResult);
         }
+        else if (action.equals("getCookie")) {
+            String cookie = this.getCookie(args.getString(0));
+            JSONObject r = new JSONObject();
+            r.put("cookie", cookie);
+            callbackContext.success(r);
+        }
         else {
             return false;
         }
@@ -743,6 +749,15 @@ public class InAppBrowser extends CordovaPlugin {
                 callbackContext = null;
             }
         }
+    }
+
+    public String getCookie(String url) {
+        try{
+            return CookieManager.getInstance().getCookie(url);
+        } catch(Exception exc) {
+            Log.d(LOG_TAG, "Should never happen");
+        }
+        return null;
     }
     
     /**

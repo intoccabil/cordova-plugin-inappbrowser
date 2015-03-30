@@ -39,6 +39,9 @@ InAppBrowser.prototype = {
             this.channels[event.type].fire(event);
         }
     },
+    getCookie: function (url, successCallback) {
+        exec(successCallback, null, "InAppBrowser", "getCookie", [url]);
+    },
     close: function (eventname) {
         exec(null, null, "InAppBrowser", "close", []);
     },
